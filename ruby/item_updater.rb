@@ -18,7 +18,8 @@ class ItemUpdater
   end
 
   def update
-    decrease_sell_in unless legendary?
+    decrease_sell_in
+    update_quality
   end
 
   protected
@@ -35,22 +36,20 @@ class ItemUpdater
     item.quality = [item.quality - amount, 0].max
   end
 
-  def legendary?
-    item.is_a?(LegendaryItemUpdater) || item.name == 'Sulfuras, Hand of Ragnaros'
+  def update_quality
+    # To be implemented in subclasses
   end
 end
 
 class NormalItemUpdater < ItemUpdater
-  def update
-    super
+  def update_quality
     amount = item.sell_in.negative? ? 2 : 1
     decrease_quality(amount)
   end
 end
 
 class AgedBrieUpdater < ItemUpdater
-  def update
-    super
+  def update_quality
     amount = item.sell_in.negative? ? 2 : 1
     increase_quality(amount)
   end
@@ -63,8 +62,7 @@ class BackstagePassUpdater < ItemUpdater
     (10..) => 1
   }.freeze
 
-  def update
-    super
+  def update_quality
     return item.quality = 0 if item.sell_in.negative?
 
     amount = QUALITY_INCREASE_RATES.find { |range, _| range.cover?(item.sell_in) }.last
@@ -73,8 +71,7 @@ class BackstagePassUpdater < ItemUpdater
 end
 
 class ConjuredItemUpdater < ItemUpdater
-  def update
-    super
+  def update_quality
     amount = item.sell_in.negative? ? 4 : 2
     decrease_quality(amount)
   end

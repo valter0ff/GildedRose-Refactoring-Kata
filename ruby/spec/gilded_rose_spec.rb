@@ -163,20 +163,39 @@ describe GildedRose do
   end
 
   context 'Conjured item' do
-    let(:items) { [Item.new('Conjured Mana Cake', 8, 12)] }
+    context 'with sell_in 8' do
+      let(:items) { [Item.new('Conjured Mana Cake', 8, 12)] }
 
-    it_behaves_like 'quality degradation over days', 10, {
-      'Day 1': [7, 10],
-      'Day 2': [6, 8],
-      'Day 3': [5, 6],
-      'Day 4': [4, 4],
-      'Day 5': [3, 2],
-      'Day 6': [2, 0],
-      'Day 7': [1, 0],
-      'Day 8': [0, 0],
-      'Day 9': [-1, 0],
-      'Day 10': [-2, 0]
-    }
+      it_behaves_like 'quality degradation over days', 10, {
+        'Day 1': [7, 10],
+        'Day 2': [6, 8],
+        'Day 3': [5, 6],
+        'Day 4': [4, 4],
+        'Day 5': [3, 2],
+        'Day 6': [2, 0],
+        'Day 7': [1, 0],
+        'Day 8': [0, 0],
+        'Day 9': [-1, 0],
+        'Day 10': [-2, 0]
+      }
+    end
+
+    context 'with sell_in 7' do
+      let(:items) { [Item.new('Conjured Mana Cake', 7, 30)] }
+
+      it_behaves_like 'quality degradation over days', 10, {
+        'Day 1': [6, 28],
+        'Day 2': [5, 26],
+        'Day 3': [4, 24],
+        'Day 4': [3, 22],
+        'Day 5': [2, 20],
+        'Day 6': [1, 18],
+        'Day 7': [0, 16],
+        'Day 8': [-1, 12],
+        'Day 9': [-2, 8],
+        'Day 10': [-3, 4]
+      }
+    end
   end
 
   context 'dummy' do

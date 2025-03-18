@@ -130,7 +130,7 @@ describe GildedRose do
     let(:items) { [Item.new('Sulfuras, Hand of Ragnaros', 0, 80)] }
 
     context 'with sell_in 0' do
-      it_behaves_like 'quality degradation over days', 5, {
+      it_behaves_like 'quality degradation over days', 10, {
         'Day 1': [0, 80],
         'Day 2': [0, 80],
         'Day 3': [0, 80],
@@ -147,7 +147,7 @@ describe GildedRose do
     context 'with sell_in -1' do
       let(:items) { [Item.new('Sulfuras, Hand of Ragnaros', -1, 80)] }
 
-      it_behaves_like 'quality degradation over days', 5, {
+      it_behaves_like 'quality degradation over days', 10, {
         'Day 1': [-1, 80],
         'Day 2': [-1, 80],
         'Day 3': [-1, 80],
@@ -165,7 +165,7 @@ describe GildedRose do
   context 'Conjured item' do
     let(:items) { [Item.new('Conjured Mana Cake', 8, 12)] }
 
-    it_behaves_like 'quality degradation over days', 5, {
+    it_behaves_like 'quality degradation over days', 10, {
       'Day 1': [7, 10],
       'Day 2': [6, 8],
       'Day 3': [5, 6],

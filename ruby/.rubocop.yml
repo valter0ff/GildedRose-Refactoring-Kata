@@ -1,0 +1,14 @@
+AllCops:
+  TargetRubyVersion: 3.3.7
+  DisabledByDefault: false
+  SuggestExtensions: false
+  NewCops: enable
+  Exclude:
+    - 'texttest_fixture.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
